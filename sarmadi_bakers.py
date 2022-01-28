@@ -143,8 +143,7 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
             item_selection_check_list = ["e"]
             # LIST FOR CHECK PURPOSE TO REMOVE ITEMS
             remove_check_list = ["e", "b"]
-            products = {"Pizza": 750, "Burger": 150, "Bread": 80, "Cake": 350, "Eggs 1 dozen": 110, "Cold-drink": 70,
-                        "Biscuits": 18, "Ice-cream": 35, "Chocolate": 25, "Milk Pack": 45, "Sandwich": 60}
+            products = project_data["products"]
             print("\n")
             sold_items = []  # LIST FOR STORING SOLD ITEMS
             remove_items = []  # LIST FOR STORING ITEM NUMBERS THAT WE WANNA REMOVE

@@ -1,4 +1,17 @@
 {
-    "lucky_draw_records": [
-    ]
+    "products": {
+        "Pizza": 750,
+        "Burger": 150,
+        "Bread": 80,
+        "Cake": 350,
+        "Eggs 1 dozen": 110,
+        "Cold-drink": 70,
+        "Biscuits": 18,
+        "Ice-cream": 35,
+        "Chocolate": 25,
+        "Milk Pack": 45,
+        "Sandwich": 60,
+        "regular coke": 70
+    },
+    "lucky_draw_records": []
 }
