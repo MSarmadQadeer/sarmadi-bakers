@@ -1,7 +1,8 @@
+import json
 import random
 import datetime
 
-lucky_draw_limit = 5
+lucky_draw_limit = 4
 
 print("")
 print("\t|======|     /\     |====| |\        /|     /\     |===)   =====   ")
@@ -117,6 +118,11 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
     address = input("Kindly Enter Your Address: ")
 
     while True:  # THIS LOOP IS FOR THE MAIN MENU
+
+        with open("data.json") as jsonFile:
+            project_data = json.load(jsonFile)
+            jsonFile.close()
+
         print(
             "\n\nPress '1' To Buy Something From Stock \nPress '2' To Apply For Job in SARMADI BAKERS \nPress '3' To "
             "Apply For Lucky Draw of Umrah Ticket")
@@ -377,53 +383,45 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
         if initial_choice == 3:
 
             try:  # TO WRITE ONCE AND READ EVERYTIME PURPOSE
-                customer_name = []
-                with open("name.txt", "r") as name:
-                    for line in name:
-                        customer_name.append(line[0:len(line) - 1])
-                customer_cnic = []
-                with open("cnic.txt", "r") as cnic:
-                    for line in cnic:
-                        customer_cnic.append(line[0:len(line) - 1])
-                customer_mobile_num = []
-                with open("mobile.txt", "r") as mobile:
-                    for line in mobile:
-                        customer_mobile_num.append(line[0:len(line) - 1])
-                customer_email = []
-                with open("email.txt", "r") as email:
-                    for line in email:
-                        customer_email.append(line[0:len(line) - 1])
-                customer_dob = []
-                with open("birth.txt", "r") as dob:
-                    for line in dob:
-                        customer_dob.append(line[0:len(line) - 1])
-                if len(customer_name) == lucky_draw_limit:
+
+                if len(project_data["lucky_draw_records"]) == lucky_draw_limit:
                     print("\n------ The Registration Is Over ------")
                     lucky_number = random.randint(0, lucky_draw_limit)
 
                     try:
-                        with open("lucky_number.txt", "r") as Lucky:
-                            for line in Lucky:
-                                lucky_number = int(line)
+                        lucky_number = project_data["lucky_number"]
+
                     except:
-                        with open("lucky_number.txt", "w") as Lucky:
-                            Lucky.write(str(lucky_number))
+                        project_data["lucky_number"] = str(lucky_number)
+                        # save data
+                        with open("data.json", "w+") as jsonFile:
+                            json.dump(project_data, jsonFile, indent=4)
+                            jsonFile.close()
 
                     # THESE BELOW LINES ARE TO ANNOUNCE THE TICKET WINNER
                     print("\nTHE WINNER OF UMRAH TICKET IS :\n")
-                    print(customer_name[int(lucky_number)], end="")
-                    space3(len(customer_name[int(lucky_number)]))
-                    print("|", customer_cnic[int(lucky_number)], end="")
-                    space2(len(customer_cnic[int(lucky_number)]))
-                    print("|", customer_mobile_num[int(lucky_number)], end="")
-                    space2(len(customer_mobile_num[int(lucky_number)]))
-                    print("|", customer_email[int(lucky_number)], end="")
-                    space(len(customer_email[int(lucky_number)]))
-                    print("|", customer_dob[int(lucky_number)])
+                    print(project_data["lucky_draw_records"]
+                          [int(lucky_number)]["name"], end="")
+                    space3(
+                        len(project_data["lucky_draw_records"][int(lucky_number)]["name"]))
+                    print("|", project_data["lucky_draw_records"][int(
+                        lucky_number)]["cnic"], end="")
+                    space2(
+                        len(project_data["lucky_draw_records"][int(lucky_number)]["cnic"]))
+                    print("|", project_data["lucky_draw_records"][int(
+                        lucky_number)]["mobile"], end="")
+                    space2(
+                        len(project_data["lucky_draw_records"][int(lucky_number)]["mobile"]))
+                    print("|", project_data["lucky_draw_records"][int(
+                        lucky_number)]["email"], end="")
+                    space(
+                        len(project_data["lucky_draw_records"][int(lucky_number)]["email"]))
+                    print(
+                        "|", project_data["lucky_draw_records"][int(lucky_number)]["dob"])
             except:
                 print()
 
-            if len(customer_name) < lucky_draw_limit:
+            if len(project_data["lucky_draw_records"]) < lucky_draw_limit:
                 print(
                     "\n\nPress 1 To Apply For Umrah Ticket\nPress 2 To View The List of Appliers For Umrah Ticket")
                 umrah_ticket_check_list = ["1", "2"]  # LIST FOR CHECK PURPOSE
@@ -438,68 +436,45 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
 
                 # CODE FOR APPLYING FOR TICKET
                 if choice == "1":
-                    with open("name.txt", "a") as name_file:
-                        name_file.write(name)
-                        name_file.write("\n")
-                    with open("cnic.txt", "a") as cnic:
-                        Cnic = cnic_check(
-                            input("Enter Your CNIC XXXXX-XXXXXXX-X: "))
-                        cnic.write(Cnic)
-                        cnic.write("\n")
-                    with open("mobile.txt", "a") as mobile:
-                        Num = mobile_no_check(input("Enter Your Mobile N0#: "))
-                        mobile.write(Num)
-                        mobile.write("\n")
-                    with open("email.txt", "a") as email:
-                        Email = input("Enter Your Email Address: ")
-                        email.write(Email)
-                        email.write("\n")
-                    with open("birth.txt", "a") as dob:
-                        Dob = dob_check(
-                            input("Enter Your Date of Birth dd/mm/yyyy: "))
-                        dob.write(Dob)
-                        dob.write("\n")
+                    cnic = cnic_check(
+                        input("Enter Your CNIC XXXXX-XXXXXXX-X: "))
+                    mobile = mobile_no_check(input("Enter Your Mobile N0#: "))
+                    email = input("Enter Your Email Address: ")
+                    dob = dob_check(
+                        input("Enter Your Date of Birth dd/mm/yyyy: "))
+
+                    # add data new
+                    project_data["lucky_draw_records"].append({
+                        "name": name,
+                        "cnic": cnic,
+                        "mobile": mobile,
+                        "email": email,
+                        "dob": dob
+                    })
+
+                    # save data new
+                    with open("data.json", "w+") as jsonFile:
+                        json.dump(project_data, jsonFile, indent=4)
+                        jsonFile.close()
 
                 # CODE FOR DISPLAYING APPLIERS IN PROPER LIST
                 if choice == "2":
-                    try:
-                        customer_name = []
-                        with open("name.txt", "r") as name:
-                            for line in name:
-                                customer_name.append(line[0:len(line) - 1])
-                        customer_cnic = []
-                        with open("cnic.txt", "r") as cnic:
-                            for line in cnic:
-                                customer_cnic.append(line[0:len(line) - 1])
-                        customer_mobile_num = []
-                        with open("mobile.txt", "r") as mobile:
-                            for line in mobile:
-                                customer_mobile_num.append(
-                                    line[0:len(line) - 1])
-                        customer_email = []
-                        with open("email.txt", "r") as email:
-                            for line in email:
-                                customer_email.append(line[0:len(line) - 1])
-                        customer_dob = []
-                        with open("birth.txt", "r") as dob:
-                            for line in dob:
-                                customer_dob.append(line[0:len(line) - 1])
-
+                    if len(project_data["lucky_draw_records"]) > 0:
                         print(
                             "\n     NAME                  |CNIC             |MOBILE NO#       |EMAIL ADDRESS                  |DATE OF BIRTH")
                         print(
                             "-----------------------------------------------------------------------------------------------------------------")
-                        for i in range(len(customer_name)):
-                            print(i, ") ", customer_name[i], end="")
-                            space3(len(customer_name[i]))
-                            print("|", customer_cnic[i], end="")
-                            space2(len(customer_cnic[i]))
-                            print("|", customer_mobile_num[i], end="")
-                            space2(len(customer_mobile_num[i]))
-                            print("|", customer_email[i], end="")
-                            space(len(customer_email[i]))
-                            print("|", customer_dob[i])
-                    except:
+                        for index, record in enumerate(project_data["lucky_draw_records"]):
+                            print(index, ") ", record["name"], end="")
+                            space3(len(record["name"]))
+                            print("|", record["cnic"], end="")
+                            space2(len(record["cnic"]))
+                            print("|", record["mobile"], end="")
+                            space2(len(record["mobile"]))
+                            print("|", record["email"], end="")
+                            space(len(record["email"]))
+                            print("|", record["dob"])
+                    else:
                         print("\nRECORD NOT AVAILABLE")
 
                 # CONDITION TO GO TO MAIN OR TO END
