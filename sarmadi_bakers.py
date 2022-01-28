@@ -48,8 +48,7 @@ def mobile_no_check(x):  # FUNCTION TO CHECK VALIDITY OF MOBILE NUMBER
         if x[0:4].isdigit() and x[5:13].isdigit() and x[0:2] == "03" and len(x) == 12 and x[4] == "-":
             return x
         else:
-            x = input(
-                "Invalid Entry. Enter Mobile No# in formate '03XX-XXXXXXX' : ")
+            x = input("Invalid Entry. Enter Mobile No# in formate '03XX-XXXXXXX' : ")
 
 
 def cnic_check(x):  # FUNCTION TO CHECK VALIDITY OF CNIC
@@ -57,8 +56,7 @@ def cnic_check(x):  # FUNCTION TO CHECK VALIDITY OF CNIC
         if len(x) == 15 and x[5] == "-" and (x[0:5].isdigit()) and x[6:13].isdigit() and x[13] == "-" and x[14].isdigit():
             return x
         else:
-            x = input(
-                "Invalid Entry. Enter CNIC in this Format 'XXXXX-XXXXXXX-X': ")
+            x = input("Invalid Entry. Enter CNIC in this Format 'XXXXX-XXXXXXX-X': ")
 
 
 def main_end_check(x):  # TO CHECK MAIN AND END VALID COMMAND
@@ -85,31 +83,6 @@ def digit(x):  # FUNCTION CHECK FOR DIGIT ENTRY
             return x
         else:
             x = input("Invalid Entry. Kindly Enter in Numbers: ")
-
-
-def space(x):  # FUNCTION TO GIVE SPACE AND ARRANGE LIST IN ORDER
-    for z in range(x, 30):
-        print(" ", end="")
-
-
-def space2(x):  # FUNCTION TO GIVE SPACE AND ARRANGE LIST IN ORDER
-    for z in range(x, 16):
-        print(" ", end="")
-
-
-def space3(x):  # FUNCTION TO GIVE SPACE AND ARRANGE LIST IN ORDER
-    for z in range(x, 22):
-        print(" ", end="")
-
-
-def product_space(x):  # FUNCTION TO GIVE SPACE AND ARRANGE LIST IN ORDER
-    for z in range(x, 16):
-        print(" ", end="")
-
-
-def price_space(x):  # FUNCTION TO GIVE SPACE AND ARRANGE LIST IN ORDER
-    for z in range(x, 6):
-        print(" ", end="")
 
 
 repeat = "y"
@@ -156,22 +129,13 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                 print("----------------------------")
                 # THESE BELOW LINES OF CODE IS DISPLAYING PRODUCTS IN LIST
                 for k in range(len(products)):
-                    print(k, ": ", end="")
                     item_selection_check_list.append(str(k))
                     key_tuple = tuple(products.keys())
                     value_tuple = tuple(products.values())
-                    for i in range(k, len(key_tuple)):
-                        print(key_tuple[i], end="")
-                        item = key_tuple[i]
-                        Length = len(item)
-                        for j in range(Length, 16):
-                            print(" ", end="")
-                        print("=\t", value_tuple[k])
-                        break
+                    print('{:3})  {:16}=\t{:6}'.format(k, key_tuple[k], value_tuple[k]))
 
                 while True:  # THIS LOOP IS FOR CHECK PURPOSE AND FOR STORING USER CHOICES REGARDING PRODUCT SELLING
-                    item_selection = input(
-                        "\nChoose Item or Enter 'e' to Exit: ").lower()
+                    item_selection = input("\nChoose Item or Enter 'e' to Exit: ").lower()
                     if item_selection in item_selection_check_list:
                         if item_selection == "e":
                             break
@@ -190,19 +154,15 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                 print("\nLIST OF CHOOSEN ITEMS:")
                 print("----------------------")
                 for l in range(len(sold_items)):
-                    print(l, ") ", sold_items[l], end="")
                     remove_check_list.append(str(l))
                     total_price = total_price + products[sold_items[l]]
+                    print('{:3})  {:16}=\t{:6}'.format(l, sold_items[l], sold_items_prices[l]))
 
-                    for m in range(len(sold_items[l]), 16):
-                        print(" ", end="")
-                    print("=\t", sold_items_prices[l])
                 print("------------------------------")
-                print("Total           =\t", total_price)
+                print('{:22}=\t{}'.format("Total", total_price))
 
                 while True:  # THIS LOOP IS STORING THE ENTRIES THAT WE WANNA REMOVE
-                    remove = input(
-                        "\nChoose Item To Remove or Type 'e' To End or type 'b' To Go Back: ").lower()
+                    remove = input("\nChoose Item To Remove or Type 'e' To End or type 'b' To Go Back: ").lower()
                     if remove in remove_check_list:
                         if remove == "e" or remove == "b":
                             break
@@ -218,25 +178,17 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
             print("-----------------")
             for y in range(len(sold_items)):
                 if y in remove_items:
-                    print(y, ") ", sold_items[y], end="")
-                    product_space(len(sold_items[y]))
-                    print("=\t", sold_items_prices[y], end="")
-                    price_space(len(sold_items_prices[y]))
-                    print("REMOVED")
+                    print('{:3})  {:16}=\t{:6} {}'.format(y, sold_items[y], sold_items_prices[y], "REMOVED"))
                     total_price = total_price - products[sold_items[y]]
                 else:
-                    print(y, ") ", sold_items[y], end="")
-                    product_space(len(sold_items[y]))
-                    print("=\t", sold_items_prices[y])
+                    print('{:3})  {:16}=\t{:6}'.format(y, sold_items[y], sold_items_prices[y]))
             print("------------------------------")
-            print("Total           =\t", total_price)
+            print('{:22}=\t{}'.format("Total", total_price))
 
-            time = (datetime.datetime.today() + datetime.timedelta(hours=0.5)).strftime(
-                "%I:%M %p")  # TO DISPLAY 30 MINS AFTER TIME
+            time = (datetime.datetime.today() + datetime.timedelta(hours=0.5)).strftime("%I:%M %p")  # TO DISPLAY 30 MINS AFTER TIME
 
             if total_price == 0:
-                final = main_end_check(
-                    input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
+                final = main_end_check(input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
                 if final == "#":
                     continue
                 elif final == "*":
@@ -244,8 +196,7 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
             else:
                 print("\nDear ", name, ", you will have to pay the bill of Rs:", total_price, " to ", employ,
                       " he will be at: ", address, " with your products uptill ", time)
-                final = main_end_check(
-                    input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
+                final = main_end_check(input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
                 if final == "#":
                     continue
                 elif final == "*":
@@ -259,7 +210,7 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
             job_selection_check_list = []  # LIST FOR CHECK PURPOSE OF JOB SELECTION
 
             for i in range(len(jobs)):  # LOOP FOR DISPLAYING JOBS IN PROPER LIST
-                print(i, ": ", jobs[i])
+                print('{:3})  {}'.format(i,  jobs[i]))
                 job_selection_check_list.append(str(i))
 
             apply = input("\nChoose The Job You Want To Apply For: ")
@@ -267,23 +218,19 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                 if apply in job_selection_check_list:
                     break
                 else:
-                    apply = input(
-                        "This Choice Is Not Available. Kindly Enter A Valid Choice: ")
+                    apply = input("This Choice Is Not Available. Kindly Enter A Valid Choice: ")
 
             # BELOW LINES OF CODE ARE JOB CONDITIONS
             if jobs[int(apply)] == "Chef":
-                degree = yes_no_check(
-                    input("Have you got the degree of Culinary Arts: ").lower())
+                degree = yes_no_check(input("Have you got the degree of Culinary Arts: ").lower())
                 if degree == "yes":
                     print("\nDear ", name,
                           ", kindly come to our office on Monday at 10:00 AM, CEO Muhammad Sarmad and Manager Waqas will conduct a short interview")
                 if degree == "no":
-                    print(
-                        "\nDear ", name, ", You should have the degree of Culinary Arts if you want this Job")
+                    print("\nDear ", name, ", You should have the degree of Culinary Arts if you want this Job")
 
             elif jobs[int(apply)] == "Retailer":
-                degree = yes_no_check(
-                    input("Would you have a Good English Speaking and Communication Skills: ").lower())
+                degree = yes_no_check(input("Would you have a Good English Speaking and Communication Skills: ").lower())
                 if degree == "yes":
                     print("\nDear ", name,
                           ", kindly come to our office on Monday at 10:00 AM, CEO Muhammad Sarmad and Manager Waqas "
@@ -293,19 +240,16 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                           ", You should have a Good English Speaking and Communication Skills if you want this Job")
 
             elif jobs[int(apply)] == "Promotor":
-                degree = yes_no_check(
-                    input("Would you have a Degree in Marketing: ").lower())
+                degree = yes_no_check(input("Would you have a Degree in Marketing: ").lower())
                 if degree == "yes":
                     print("\nDear ", name,
                           ", kindly come to our office on Monday at 10:00 AM, CEO Muhammad Sarmad and Manager Waqas "
                           "will conduct a short interview")
                 if degree == "no":
-                    print(
-                        "\nDear ", name, ", You should have a Degree in Marketing if you want this Job")
+                    print("\nDear ", name, ", You should have a Degree in Marketing if you want this Job")
 
             elif jobs[int(apply)] == "Security Guard":
-                height = int(
-                    digit(input("Kindly Enter your height in Centimeters: ")))
+                height = int(digit(input("Kindly Enter your height in Centimeters: ")))
                 age = int(digit(input("Kindly Enter your age in Years: ")))
                 if height < 178 and (age in range(25, 46)):
                     print("\nDear ", name, ", You are short-heighted for this job")
@@ -328,12 +272,10 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                     print("\nDear ", name,
                           ", You are over-heighted and over age for this job")
                 else:
-                    print(
-                        "\nCome to our office on Monday at 10:00 AM to take your Uniform")
+                    print("\nCome to our office on Monday at 10:00 AM to take your Uniform")
 
             elif jobs[int(apply)] == "Sanitary Inspector":
-                degree = yes_no_check(
-                    input("Would you have a Diploma in Sanitary Inspector's course: ").lower())
+                degree = yes_no_check(input("Would you have a Diploma in Sanitary Inspector's course: ").lower())
                 if degree == "yes":
                     print("\nDear ", name,
                           ", kindly come to our office on Monday at 10:00 AM, CEO Muhammad Sarmad and Manager Waqas will conduct a short interview")
@@ -342,37 +284,30 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                           ", You should have a Diploma in Sanitary Inspector's course if you want this Job")
 
             elif jobs[int(apply)] == "Food Inspector":
-                degree = yes_no_check(
-                    input("Would you have a Food Processing Degree: ").lower())
+                degree = yes_no_check(input("Would you have a Food Processing Degree: ").lower())
                 if degree == "yes":
                     print("\nDear ", name,
                           ", kindly come to our office on Monday at 10:00 AM, CEO Muhammad Sarmad and Manager Waqas will conduct a short interview")
                 if degree == "no":
-                    print(
-                        "\nDear ", name, ", You should have a Food Processing Degree if you want this Job")
+                    print("\nDear ", name, ", You should have a Food Processing Degree if you want this Job")
 
             elif jobs[int(apply)] == "Emergency Dealer":
-                degree = yes_no_check(
-                    input("Would you have a complete Knowledge of First Aid: ").lower())
+                degree = yes_no_check(input("Would you have a complete Knowledge of First Aid: ").lower())
                 if degree == "yes":
                     print("\nDear ", name,
                           ", kindly come to our office on Monday at 10:00 AM, CEO Muhammad Sarmad and Manager Waqas will conduct a short interview")
                 if degree == "no":
-                    print(
-                        "\nDear ", name, ", You should have a complete Knowledge of First Aid if you want this Job")
+                    print("\nDear ", name, ", You should have a complete Knowledge of First Aid if you want this Job")
 
             elif jobs[int(apply)] == "Cash Manager":
-                degree = yes_no_check(
-                    input("Would you have a Degree in Accounting and Finance: ").lower())
+                degree = yes_no_check(input("Would you have a Degree in Accounting and Finance: ").lower())
                 if degree == "yes":
                     print("\nDear ", name,
                           ", kindly come to our office on Monday at 10:00 AM, CEO Muhammad Sarmad and Manager Waqas will conduct a short interview")
                 if degree == "no":
-                    print(
-                        "\nDear ", name, ", You should have a Degree in Accounting and Finance if you want this Job")
+                    print("\nDear ", name, ", You should have a Degree in Accounting and Finance if you want this Job")
 
-            final = main_end_check(
-                input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
+            final = main_end_check(input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
             if final == "#":
                 continue
             elif final == "*":
@@ -399,30 +334,23 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
 
                     # THESE BELOW LINES ARE TO ANNOUNCE THE TICKET WINNER
                     print("\nTHE WINNER OF UMRAH TICKET IS :\n")
-                    print(project_data["lucky_draw_records"]
-                          [int(lucky_number)]["name"], end="")
-                    space3(
-                        len(project_data["lucky_draw_records"][int(lucky_number)]["name"]))
-                    print("|", project_data["lucky_draw_records"][int(
-                        lucky_number)]["cnic"], end="")
-                    space2(
-                        len(project_data["lucky_draw_records"][int(lucky_number)]["cnic"]))
-                    print("|", project_data["lucky_draw_records"][int(
-                        lucky_number)]["mobile"], end="")
-                    space2(
-                        len(project_data["lucky_draw_records"][int(lucky_number)]["mobile"]))
-                    print("|", project_data["lucky_draw_records"][int(
-                        lucky_number)]["email"], end="")
-                    space(
-                        len(project_data["lucky_draw_records"][int(lucky_number)]["email"]))
-                    print(
-                        "|", project_data["lucky_draw_records"][int(lucky_number)]["dob"])
+                    print('{:22}| {:16}| {:16}| {:30}| {}'.format(
+                        project_data["lucky_draw_records"][int(
+                            lucky_number)]["name"],
+                        project_data["lucky_draw_records"][int(
+                            lucky_number)]["cnic"],
+                        project_data["lucky_draw_records"][int(
+                            lucky_number)]["mobile"],
+                        project_data["lucky_draw_records"][int(
+                            lucky_number)]["email"],
+                        project_data["lucky_draw_records"][int(
+                            lucky_number)]["dob"]
+                    ))
             except:
                 print()
 
             if len(project_data["lucky_draw_records"]) < lucky_draw_limit:
-                print(
-                    "\n\nPress 1 To Apply For Umrah Ticket\nPress 2 To View The List of Appliers For Umrah Ticket")
+                print("\n\nPress 1 To Apply For Umrah Ticket\nPress 2 To View The List of Appliers For Umrah Ticket")
                 umrah_ticket_check_list = ["1", "2"]  # LIST FOR CHECK PURPOSE
 
                 choice = input("Kindly Choose One of These: ")
@@ -430,17 +358,14 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                     if choice in umrah_ticket_check_list:
                         break
                     else:
-                        choice = input(
-                            "Invalid Entry. Kindly Choose '1' or '2' : ")
+                        choice = input("Invalid Entry. Kindly Choose '1' or '2' : ")
 
                 # CODE FOR APPLYING FOR TICKET
                 if choice == "1":
-                    cnic = cnic_check(
-                        input("Enter Your CNIC XXXXX-XXXXXXX-X: "))
+                    cnic = cnic_check(input("Enter Your CNIC XXXXX-XXXXXXX-X: "))
                     mobile = mobile_no_check(input("Enter Your Mobile N0#: "))
                     email = input("Enter Your Email Address: ")
-                    dob = dob_check(
-                        input("Enter Your Date of Birth dd/mm/yyyy: "))
+                    dob = dob_check(input("Enter Your Date of Birth dd/mm/yyyy: "))
 
                     # add data new
                     project_data["lucky_draw_records"].append({
@@ -459,30 +384,21 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
                 # CODE FOR DISPLAYING APPLIERS IN PROPER LIST
                 if choice == "2":
                     if len(project_data["lucky_draw_records"]) > 0:
-                        print(
-                            "\n     NAME                  |CNIC             |MOBILE NO#       |EMAIL ADDRESS                  |DATE OF BIRTH")
-                        print(
-                            "-----------------------------------------------------------------------------------------------------------------")
+                        print('\n     {:22}| {:16}| {:16}| {:30}| {}'.format("NAME", "CNIC", "MOBILE NO#", "EMAIL ADDRESS", "DATE OF BIRTH"))
+                        for i in range(110):
+                            print("-", end="")
+                        print("\n")
                         for index, record in enumerate(project_data["lucky_draw_records"]):
-                            print(index, ") ", record["name"], end="")
-                            space3(len(record["name"]))
-                            print("|", record["cnic"], end="")
-                            space2(len(record["cnic"]))
-                            print("|", record["mobile"], end="")
-                            space2(len(record["mobile"]))
-                            print("|", record["email"], end="")
-                            space(len(record["email"]))
-                            print("|", record["dob"])
+                            print('{:2})  {:22}| {:16}| {:16}| {:30}| {}'.format(
+                                index, record["name"], record["cnic"], record["mobile"], record["email"], record["dob"]))
                     else:
                         print("\nRECORD NOT AVAILABLE")
 
                 # CONDITION TO GO TO MAIN OR TO END
-                final = main_end_check(
-                    input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
+                final = main_end_check(input("\nType '#' To Move To Main Menu OR Type '*' To End:  "))
                 if final == "#":
                     continue
                 elif final == "*":
                     break
 
-    repeat = yes_no_check(
-        input("\nDo You Want To Run The Code Again: ").lower())
+    repeat = yes_no_check(input("\nDo You Want To Run The Code Again: ").lower())
