@@ -138,7 +138,7 @@ while repeat == "y" or repeat == "yes":  # THIS LOOP IS TO REPEAT THE CODE
 
         if initial_choice == 1:
             # RANDOMLY CHOOSE OUR EMPLOY
-            employ = random.choice(["Mr. Ali", "Mr. Talha"])
+            employ = random.choice(project_data["employees"])
             # LIST FOR CHECK PURPOSE OF ITEM SELECTION
             item_selection_check_list = ["e"]
             # LIST FOR CHECK PURPOSE TO REMOVE ITEMS

@@ -13,5 +13,9 @@
         "Sandwich": 60,
         "regular coke": 70
     },
+    "employees": [
+        "Mr. Ali",
+        "Mr. Talha"
+    ],
     "lucky_draw_records": []
 }
